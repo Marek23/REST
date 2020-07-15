@@ -3,6 +3,7 @@ package pl.com.home.logic
 class User {
 	var int id
 	var String name
+	var String login
 
 	new(int id, String name) {
 		this.id   = id
@@ -15,5 +16,9 @@ class User {
 
 	def String getname() {
 		return name
+	}
+
+	def String getLogin() {
+		return login
 	}
 }
