@@ -29,9 +29,9 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 			.csrf().disable()
 			.authorizeRequests().antMatchers("/authenticate")
 			.permitAll()
-			.anyRequest().authenticated();
+			.anyRequest().authenticated(); // inne rządania muszą być
+//											  uwierzytelnione
 	}
-	
 
 	// tutaj mówię, żeby spring nie robił nic z hasłem, nie 
 	// odkodowywał tego co wyjdzie z klasy którą napisałem
@@ -43,6 +43,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 
 	// rozwiązanie niekompatybilności z poprzednią wersją
 	// czyli nadpisanie metody w klasie jak ma zwracać beana
+	// ten bean poleci do JwtController
 	@Override
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {
