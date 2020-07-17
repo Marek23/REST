@@ -1,4 +1,4 @@
-package pl.com.home.logic
+package pl.com.home.model
 
 class User {
 	var int id
