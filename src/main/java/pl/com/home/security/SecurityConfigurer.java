@@ -7,14 +7,20 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import pl.com.home.security.filter.JwtRequestFilter;
 
 @EnableWebSecurity
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private MyUserDetailsService myUserDetailsService;
 
+	@Autowired
+	private JwtRequestFilter filter;
 	
 	// definicja sposobu autoryzacji na podstawie mojej klasy
 	@Override
@@ -23,15 +29,19 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 	}
 
 	// konfiguracja jwt
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http
-//			.csrf().disable()
-//			.authorizeRequests().antMatchers("/authenticate")
-//			.permitAll()
-//			.anyRequest().authenticated(); // inne rządania muszą być
-////											  uwierzytelnione
-//	}
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+			.csrf().disable()
+			.authorizeRequests().antMatchers("/authenticate")
+			.permitAll()
+			.anyRequest().authenticated() // inne rządania muszą być uwierzytelnione
+			.and()
+			.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//				nie tworzę sesji, bo dodaję poniższy filter
+			http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+	}
 
 	// tutaj mówię, żeby spring nie robił nic z hasłem, nie 
 	// odkodowywał tego co wyjdzie z klasy którą napisałem
