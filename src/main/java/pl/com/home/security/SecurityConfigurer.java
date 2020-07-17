@@ -23,15 +23,15 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 	}
 
 	// konfiguracja jwt
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http
-			.csrf().disable()
-			.authorizeRequests().antMatchers("/authenticate")
-			.permitAll()
-			.anyRequest().authenticated(); // inne rządania muszą być
-//											  uwierzytelnione
-	}
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//		http
+//			.csrf().disable()
+//			.authorizeRequests().antMatchers("/authenticate")
+//			.permitAll()
+//			.anyRequest().authenticated(); // inne rządania muszą być
+////											  uwierzytelnione
+//	}
 
 	// tutaj mówię, żeby spring nie robił nic z hasłem, nie 
 	// odkodowywał tego co wyjdzie z klasy którą napisałem
