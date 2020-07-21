@@ -33,14 +33,10 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.csrf().disable()
-			.authorizeRequests().antMatchers("/authenticate")
-			.permitAll()
-			.anyRequest().authenticated() // inne rządania muszą być uwierzytelnione
-			.and()
-			.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+			.authorizeRequests().antMatchers("/")
+			.permitAll();
 //				nie tworzę sesji, bo dodaję poniższy filter
-			http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+//			http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 	}
 
 	// tutaj mówię, żeby spring nie robił nic z hasłem, nie 
